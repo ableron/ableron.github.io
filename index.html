@@ -11,9 +11,33 @@
   <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Welcome to Ableron</h1>
   <p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">Your way to bring your micro frontends together using distributed server side UI composition.</p>
 
+  <h2 class="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-white">Include Tag</h2>
+  <ul class="text-left list-disc mb-6 text-gray-500 lg:text-lg sm:px-16 xl:px-48 dark:text-gray-400">
+    <li>Must be closed, i.e. either `&lt;ableron-include ... /&gt;` or `&lt;ableron-include ...&gt;&lt;/ableron-include&gt;`</li>
+    <li>Content between `&lt;ableron-include&gt;` and `&lt;/ableron-include&gt;` is used as fallback content</li>
+    <li>Attributes</li>
+    <li>`id`: Unique name of the include used within log messages</li>
+    <li>`src`: URL of the fragment to include</li>
+    <li>`src-timeout-millis`: Timeout for requesting the `src` URL. Defaults to global `requestTimeout`</li>
+    <li>`fallback-src`: URL of the fragment to include in case the request to `src` failed</li>
+    <li>`fallback-src-timeout-millis`: Timeout for requesting the `fallback-src` URL. Defaults to global `requestTimeout`</li>
+    <li>`primary`: Denotes a fragment whose response code is set as response code for the page</li>
+    <li>If `src` returns success status, this status code is set as response code for the page</li>
+    <li>If `src` returns error status, `fallback-src` is defined and returns success status, this status code is set as response code for the page</li>
+    <li>If `src` and `fallback-src` return error status, the status code returned by `src` is set as response code for the page</li>
+    <li>If `src` and `fallback-src` return error status, the fragment content equals the body returned by `src`. Fallback content is ignored</li>
+    <li>Precedence for resolving: `src` → `fallback-src` → fallback content</li>
+  </ul>
+  </p>
+
+  <h2 class="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-white">Request Collapsing</h2>
+  <p class="text-left mb-6 font-normal text-gray-500 lg:text-lg sm:px-16 xl:px-48 dark:text-gray-400">
+    Simultaneous requests to the same URL are collapsed to one request in case the response is cacheable.
+  </p>
+
   <h2 class="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-white">Contributing</h2>
   <p class="mb-6 font-normal text-gray-500 lg:text-lg sm:px-16 xl:px-48 dark:text-gray-400">All contributions are greatly appreciated. To contribute you can either simply open an issue or fork the corresponding repository and create a pull request:
-  <ol class="list-decimal mb-6 text-gray-500 lg:text-lg sm:px-16 xl:px-48 dark:text-gray-400">
+  <ol class="text-left list-decimal mb-6 text-gray-500 lg:text-lg sm:px-16 xl:px-48 dark:text-gray-400">
     <li>Fork the respective repository</li>
     <li>Create your feature branch (`git checkout -b feature/amazing-feature`)</li>
     <li>Commit your changes (`git commit -m 'Added some amazing feature'`)</li>
