@@ -7,42 +7,91 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
-<h1>Welcome to Ableron</h1>
-<p>Your way to bring your micro frontends together using distributed server side UI composition.</p>
+<main class="my-4">
+  <div class="px-4 pt-5 text-center border-bottom">
+    <h1 class="display-4 fw-bold text-body-emphasis">Ableron UI Composition</h1>
+    <h2 class="display-6 fw-bold text-body-emphasis">Server Side. Dynamic. Distributed.</h2>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">Your way to bring your micro frontends together using distributed server side UI composition.</p>
+    </div>
+  </div>
 
-<h2>Include Tag</h2>
-<ul>
-  <li>Must be closed, i.e. either `&lt;ableron-include ... /&gt;` or `&lt;ableron-include ...&gt;&lt;/ableron-include&gt;`</li>
-  <li>Content between `&lt;ableron-include&gt;` and `&lt;/ableron-include&gt;` is used as fallback content</li>
-  <li>Attributes</li>
-  <li>`id`: Unique name of the include used within log messages</li>
-  <li>`src`: URL of the fragment to include</li>
-  <li>`src-timeout-millis`: Timeout for requesting the `src` URL. Defaults to global `requestTimeout`</li>
-  <li>`fallback-src`: URL of the fragment to include in case the request to `src` failed</li>
-  <li>`fallback-src-timeout-millis`: Timeout for requesting the `fallback-src` URL. Defaults to global `requestTimeout`</li>
-  <li>`primary`: Denotes a fragment whose response code is set as response code for the page</li>
-  <li>If `src` returns success status, this status code is set as response code for the page</li>
-  <li>If `src` returns error status, `fallback-src` is defined and returns success status, this status code is set as response code for the page</li>
-  <li>If `src` and `fallback-src` return error status, the status code returned by `src` is set as response code for the page</li>
-  <li>If `src` and `fallback-src` return error status, the fragment content equals the body returned by `src`. Fallback content is ignored</li>
-  <li>Precedence for resolving: `src` → `fallback-src` → fallback content</li>
-</ul>
+  <div class="px-4 pt-3 border-bottom">
+    <h2 class="display-6 fw-bold text-center text-body-emphasis">How It Works</h2>
+    <div class="col-lg-8 mx-auto">
+      <p class="mb-4">Ableron intercepts the HTTP response sent by your service and resolves all <code>&lt;ableron-include&gt;</code>-HTML-tags
+        with their respective remote fragment. This is achieved via installing Ableron as a dependency in your service, which is doing the magic</p>
+    </div>
+  </div>
 
-<h2>Request Collapsing</h2>
-<p>Simultaneous requests to the same URL are collapsed to one request in case the response is cacheable.</p>
+  <div class="px-4 pt-3 border-bottom">
+    <h2 class="display-6 fw-bold text-center text-body-emphasis">Why Ableron?</h2>
+    <div class="col-lg-8 mx-auto">
+      <p class="mb-4">
+        Compared to Server Side Includes via nginx and thus an architecture where a dedicated infrastructure component is performing UI composition:
+      <ul>
+        <li><span class="fw-bold">Lean Infrastructure</span>: No need to route all your traffic through the infrastructure component which is performing the UI composition</li>
+        <li><span class="fw-bold">Easy Local Development</span>: Includes are resolved directly in your service. This works fine for local development and increases developer experience.</li>
+        <li><span class="fw-bold">Easy Configuration</span>: Your can easily defined different timeouts, fallback fragments or static fallback content for each of your includes.</li>
+        <li><span class="fw-bold">Caching</span>: All fragments are cached in memory directly within your service according to the cache policy of the fragments. This saves HTTP calls and thus money as well as latency.</li>
+      </ul>
+      </p>
+    </div>
+  </div>
 
-<h2>FAQ</h2>
-<p>Q: I have added a header to cacheVaryByRequestHeaders, but caching is not influenced. Why?</p>
-<p>A: Most probably the header set via cacheVaryByRequestHeaders is not sent along the fragment request. Also add the header to fragmentRequestHeadersToPass to make sure it is included in the fragment request.</p>
+  <div class="px-4 pt-3 border-bottom">
+    <h2 class="display-6 fw-bold text-center text-body-emphasis">The <code>&lt;ableron-include&gt;</code> Tag</h2>
+    <div class="col-lg-8 mx-auto">
+      <ul>
+        <li>Must be closed, i.e. either <code>&lt;ableron-include ... /&gt;</code> or <code>&lt;ableron-include ...&gt;&lt;/ableron-include&gt;</code></li>
+        <li>Content between <code>&lt;ableron-include&gt;</code> and <code>&lt;/ableron-include&gt;</code> is used as fallback content</li>
+        <li>Attributes
+          <ul>
+            <li><code>id</code>: Unique name of the include used within log messages</li>
+            <li><code>src</code>: URL of the fragment to include</li>
+            <li><code>src-timeout-millis</code>: Timeout for requesting the <code>src</code> URL. Defaults to global <code>requestTimeout</code></li>
+            <li><code>fallback-src</code>: URL of the fragment to include in case the request to <code>src</code> failed</li>
+            <li><code>fallback-src-timeout-millis</code>: Timeout for requesting the <code>fallback-src</code> URL. Defaults to global <code>requestTimeout</code></li>
+            <li><code>primary</code>: Denotes a fragment whose response code is set as response code for the page</li>
+          </ul>
+        </li>
+        <li>If <code>src</code> returns success status, this status code is set as response code for the page</li>
+        <li>If <code>src</code> returns error status, <code>fallback-src</code> is defined and returns success status, this status code is set as response code for the page</li>
+        <li>If <code>src</code> and <code>fallback-src</code> return error status, the status code returned by <code>src</code> is set as response code for the page</li>
+        <li>If <code>src</code> and <code>fallback-src</code> return error status, the fragment content equals the body returned by <code>src</code>. Fallback content is ignored</li>
+        <li>Precedence for resolving: <code>src</code> → <code>fallback-src</code> → fallback content</li>
+      </ul>
+    </div>
+  </div>
 
-<h2>Contributing</h2>
-<p>All contributions are greatly appreciated. To contribute you can either simply open an issue or fork the corresponding repository and create a pull request:</p>
-<ol>
-  <li>Fork the respective repository</li>
-  <li>Create your feature branch (`git checkout -b feature/amazing-feature`)</li>
-  <li>Commit your changes (`git commit -m 'Added some amazing feature'`)</li>
-  <li>Push to your branch (`git push origin feature/amazing-feature`)</li>
-  <li>Open a pull request</li>
-</ol>
+  <div class="px-4 pt-3 border-bottom">
+    <h2 class="display-6 fw-bold text-center text-body-emphasis">Request Collapsing</h2>
+    <div class="col-lg-8 mx-auto">
+      <p class="mb-4">Simultaneous requests to the same URL are collapsed to one request in case the response is cacheable.</p>
+    </div>
+  </div>
+
+  <div class="px-4 pt-3 border-bottom">
+    <h2 class="display-6 fw-bold text-center text-body-emphasis">FAQ</h2>
+    <div class="col-lg-8 mx-auto mb-4">
+      <p>Q: I have added a header to cacheVaryByRequestHeaders, but caching is not influenced. Why?</p>
+      <p>A: Most probably the header set via cacheVaryByRequestHeaders is not sent along the fragment request. Also add the header to fragmentRequestHeadersToPass to make sure it is included in the fragment request.</p>
+    </div>
+  </div>
+
+  <div class="px-4 pt-3 border-bottom">
+    <h2 class="display-6 fw-bold text-center text-body-emphasis">Contributing</h2>
+    <div class="col-lg-8 mx-auto mb-4">
+      <p>All contributions are greatly appreciated. To contribute you can either simply open an issue or fork the corresponding repository and create a pull request:</p>
+      <ol>
+        <li>Fork the respective repository</li>
+        <li>Create your feature branch: <code>git checkout -b feature/amazing-feature</code></li>
+        <li>Commit your changes: <code>git commit -m 'Added some amazing feature'</code></li>
+        <li>Push to your branch: <code>git push origin feature/amazing-feature</code></li>
+        <li>Open a pull request</li>
+      </ol>
+    </div>
+  </div>
+</main>
 </body>
 </html>
