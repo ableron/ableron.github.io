@@ -32,7 +32,7 @@
       <ul>
         <li><span class="fw-bold">Lean Infrastructure</span>: No need to route all your traffic through the infrastructure component which is performing the UI composition</li>
         <li><span class="fw-bold">Easy Local Development</span>: Includes are resolved directly in your service. This works fine for local development and increases developer experience.</li>
-        <li><span class="fw-bold">Easy Configuration</span>: Your can easily defined different timeouts, fallback fragments or static fallback content for each of your includes.</li>
+        <li><span class="fw-bold">Easy Configuration</span>: Your can easily define different timeouts, fallback fragments or static fallback content for each of your includes.</li>
         <li><span class="fw-bold">Caching</span>: All fragments are cached in memory directly within your service according to the cache policy of the fragments. This saves HTTP calls and thus money as well as latency.</li>
       </ul>
       </p>
@@ -55,12 +55,29 @@
             <li><code>primary</code>: Denotes a fragment whose response code is set as response code for the page</li>
           </ul>
         </li>
+        <li>Precedence for resolving: <code>src</code> → <code>fallback-src</code> → fallback content</li>
+      </ul>
+      <p>Full Example:</p>
+      <pre>&lt;ableron-include
+        id="header"
+        src="https://example.com/api/fragments/header"
+        fallback-src="https://cdn.example.com/static/fallback-header"&gt;
+        &lt;header&gt;&lt;div&gt;Static fallback header&lt;/div&gt;&lt;/header&gt;&lt;/ableron-include&gt;</pre>
+    </div>
+  </div>
+
+  <div class="px-4 pt-3 border-bottom">
+    <h2 class="display-6 fw-bold text-center text-body-emphasis">Primary Includes</h2>
+    <div class="col-lg-8 mx-auto">
+      <p class="mb-4">Treating an include as primary leads to not only include the fragment but also to let the fragment
+        control the HTTP response status code as well as response headers. How primary includes work:
+      <ul>
         <li>If <code>src</code> returns success status, this status code is set as response code for the page</li>
         <li>If <code>src</code> returns error status, <code>fallback-src</code> is defined and returns success status, this status code is set as response code for the page</li>
         <li>If <code>src</code> and <code>fallback-src</code> return error status, the status code returned by <code>src</code> is set as response code for the page</li>
         <li>If <code>src</code> and <code>fallback-src</code> return error status, the fragment content equals the body returned by <code>src</code>. Fallback content is ignored</li>
-        <li>Precedence for resolving: <code>src</code> → <code>fallback-src</code> → fallback content</li>
       </ul>
+      </p>
     </div>
   </div>
 
