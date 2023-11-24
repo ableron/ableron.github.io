@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ableron - Distributed Server Side UI Composition</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
 </head>
 <body>
 <main class="my-4">
@@ -21,6 +24,11 @@
     <div class="col-lg-8 mx-auto">
       <p class="mb-4">Ableron intercepts the HTTP response sent by your service and resolves all <code>&lt;ableron-include&gt;</code>-HTML-tags
         with their respective remote fragment. This is achieved via installing Ableron as a dependency in your service, which is doing the magic</p>
+      <p class="mb-4">
+      <pre><code class="language-html">&lt;ableron-include
+  src=&quot;https://fragment-url&quot;
+  fallback-src=&quot;https://fallback-fragment-url&quot;&gt;static fallback content&lt;/ableron-include&gt;</code></pre>
+      </p>
     </div>
   </div>
 
@@ -91,13 +99,6 @@
         <li><a href="https://github.com/ableron/ableron-express">express</a></li>
       </ul>
       </p>
-    </div>
-  </div>
-
-  <div class="px-4 pt-3 border-bottom">
-    <h2 class="display-6 fw-bold text-center text-body-emphasis">Request Collapsing</h2>
-    <div class="col-lg-8 mx-auto">
-      <p class="mb-4">Simultaneous requests to the same URL are collapsed to one request in case the response is cacheable.</p>
     </div>
   </div>
 
