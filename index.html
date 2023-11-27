@@ -20,14 +20,21 @@
   </div>
 
   <div class="px-4 pt-3 border-bottom">
+    <h2 class="display-6 fw-bold text-center text-body-emphasis">Cornerstones</h2>
+    <div class="col-lg-8 mx-auto">
+      <p class="mb-4"><b>Server Side</b> - Happens in your services before sending the response to the client.</p>
+      <p class="mb-4"><b>Dynamic</b> - Composition is performed during runtime of the services instead of compile time. This makes quality assurance a bit harder, but brings significant value regarding decoupling of your teams and services.</p>
+      <p class="mb-4"><b>Distributed</b> - No centralized infrastructure component which is performing the UI composition. Instead, each service is performing UI composition itself using an Ableron library.</p>
+    </div>
+  </div>
+
+  <div class="px-4 pt-3 border-bottom">
     <h2 class="display-6 fw-bold text-center text-body-emphasis">How It Works</h2>
     <div class="col-lg-8 mx-auto">
       <p class="mb-4">Ableron intercepts the HTTP response sent by your service and resolves all <code>&lt;ableron-include&gt;</code>-HTML-tags
         with their respective remote fragment. This is achieved via installing Ableron as a dependency in your service, which is doing the magic</p>
       <p class="mb-4">
-      <pre><code class="language-html">&lt;ableron-include
-  src=&quot;https://fragment-url&quot;
-  fallback-src=&quot;https://fallback-fragment-url&quot;&gt;static fallback content&lt;/ableron-include&gt;</code></pre>
+        <img src="resources/Ableron-Flow-drawio.png" alt="UI Composition Flow" />
       </p>
     </div>
   </div>
@@ -66,11 +73,11 @@
         <li>Precedence for resolving: <code>src</code> → <code>fallback-src</code> → fallback content</li>
       </ul>
       <p>Full Example:</p>
-      <pre>&lt;ableron-include
+      <pre><code>&lt;ableron-include
         id="header"
         src="https://example.com/api/fragments/header"
         fallback-src="https://cdn.example.com/static/fallback-header"&gt;
-        &lt;header&gt;&lt;div&gt;Static fallback header&lt;/div&gt;&lt;/header&gt;&lt;/ableron-include&gt;</pre>
+        &lt;header&gt;Static fallback header&lt;/header&gt;&lt;/ableron-include&gt;</code></pre>
     </div>
   </div>
 
