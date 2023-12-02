@@ -97,6 +97,20 @@
   </div>
 
   <div class="px-4 pt-3 border-bottom">
+    <h2 class="display-6 fw-bold text-center text-body-emphasis">Caching of fragments</h2>
+    <div class="col-lg-8 mx-auto">
+      <p class="mb-4">Fragments are considered cacheable if they have HTTP status code:
+      <ul>
+        <li><code>200</code>, <code>203</code>, <code>204</code>, <code>206</code></li>
+        <li><code>300</code></li>
+        <li><code>404</code>, <code>405</code>, <code>410</code>, <code>414</code></li>
+        <li><code>501</code></li>
+      </ul>
+      </p>
+    </div>
+  </div>
+
+  <div class="px-4 pt-3 border-bottom">
     <h2 class="display-6 fw-bold text-center text-body-emphasis">How To Use</h2>
     <div class="col-lg-8 mx-auto">
       <p class="mb-4">In order to use Ableron in your service, there needs to be a Ableron library which is compatible with the technology used in your service. Currently available implementations:
@@ -113,7 +127,19 @@
     <h2 class="display-6 fw-bold text-center text-body-emphasis">FAQ</h2>
     <div class="col-lg-8 mx-auto mb-4">
       <p>Q: I have added a header to cacheVaryByRequestHeaders, but caching is not influenced. Why?</p>
-      <p>A: Most probably the header set via cacheVaryByRequestHeaders is not sent along the fragment request. Also add the header to fragmentRequestHeadersToPass to make sure it is included in the fragment request.</p>
+      <p>A: Most probably the header set via cacheVaryByRequestHeaders is not sent along the fragment request. Also add
+        the header to fragmentRequestHeadersToPass to make sure it is included in the fragment request.</p>
+    </div>
+    <div class="col-lg-8 mx-auto mb-4">
+      <p>Q: When <code>src</code> or <code>fallback-src</code> of an <code>&lt;ableron-include&gt;</code>-tag return
+        redirect, will that redirect be followed?</p>
+      <p>A: No. Redirects will not be followed when requesting fragments because they may introduce unwanted latency.</p>
+    </div>
+    <div class="col-lg-8 mx-auto mb-4">
+      <p>Q: Does Ableron influence <code>Cache-Control</code> of my pages?</p>
+      <p>A: Yes. The transclusion result provides a max-age for the content with all includes resolved, based on the
+        fragment with the lowest expiration time. I.e. the fragment with the lowest expiration time defines the max-age
+        of the page in case max age of the page is not below it.</p>
     </div>
   </div>
 
